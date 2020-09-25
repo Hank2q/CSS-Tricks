@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>IO Switch</title>
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background-color: #fff5ee;
+            }
+
+            .container {
+                cursor: pointer;
+                width: 300px;
+                height: 100px;
+                background-color: white;
+                border-radius: 100px;
+                border: 5px solid silver;
+                box-shadow: inset 0 0 6px black;
+                background-color: red;
+                position: relative;
+                display: flex;
+                align-items: center;
+                transition: all 0.25s ease-in;
+            }
+            .cont-on {
+                background-color: #01dd01;
+            }
+            .check {
+                display: none;
+            }
+            .switch {
+                height: 70px;
+                width: 70px;
+                border-radius: 100%;
+                border: 10px solid white;
+                margin-left: 5px;
+                transition: all 0.25s ease-in;
+            }
+            .on {
+                background-color: white;
+                width: 0;
+                border-radius: 100px;
+                margin-left: 80%;
+                margin-right: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <input class="check" id="check" name="check" type="checkbox" />
+        <label id="lab" for="check">
+            <div class="container">
+                <div class="switch"></div>
+            </div>
+        </label>
+        <script>
+            const check = document.querySelector(".check");
+            const container = document.querySelector(".container");
+            const sw = document.querySelector(".switch");
+            container.addEventListener("click", print);
+            document.addEventListener("keyup", (e) => {
+                if (e.keyCode === 32) {
+                    print();
+                    check.toggleAttribute("checked");
+                }
+            });
+            function print() {
+                if (!check.checked) {
+                    sw.classList.add("on");
+                    container.classList.add("cont-on");
+                    document.body.style.backgroundColor = "#252525";
+                } else {
+                    sw.classList.remove("on");
+                    container.classList.remove("cont-on");
+                    document.body.style.backgroundColor = "#FFF5EE";
+                }
+            }
+        </script>
+    </body>
+</html>
