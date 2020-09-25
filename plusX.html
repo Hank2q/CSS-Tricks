@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Plus X</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                display: flex;
+                height: 100vh;
+                justify-content: center;
+                align-items: center;
+                background-color: #232323;
+            }
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                height: 300px;
+                width: 300px;
+                overflow: hidden;
+                border-radius: 50%;
+                position: relative;
+                box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.445);
+                transition: all 0.25s ease-in;
+            }
+            .container:hover {
+                box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 0.445);
+            }
+            .container:active {
+                box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.445);
+            }
+            .circle-border {
+                position: absolute;
+                height: 300px;
+                width: 300px;
+                background-color: #2b65e2;
+                border-radius: 50%;
+                border: 15px solid #2454bd;
+            }
+            .circle {
+                position: absolute;
+                box-sizing: content-box;
+                height: 270px;
+                width: 270px;
+                background-color: #2b65e2;
+                border-radius: 50%;
+            }
+            .sec-border {
+                position: absolute;
+                top: -100%;
+                height: 300px;
+                width: 300px;
+                transform: scale(0.85);
+                border-radius: 50%;
+                background-color: white;
+                border: 15px solid rgb(255, 255, 255);
+                transition: all 0.25s ease-in;
+            }
+            .expand {
+                top: 0;
+                transform: scale(1);
+            }
+
+            .vert,
+            .hors {
+                position: absolute;
+                width: 140px;
+                height: 20px;
+                background-color: rgb(2, 209, 2);
+                border-radius: 50px;
+                z-index: 2;
+                transition: transform 0.25s ease-in;
+            }
+            .vert {
+                height: 140px;
+                width: 20px;
+            }
+            .left,
+            .right {
+                position: absolute;
+                width: 140px;
+                height: 20px;
+                background-color: red;
+                border-radius: 50px;
+                z-index: 2;
+                transition: transform 0.25s ease-in;
+            }
+            .left {
+                transform: rotate(45deg) translateX(-200%);
+            }
+            .right {
+                transform: rotate(-45deg) translateX(200%);
+            }
+            .go-up {
+                transform: translateY(-200%);
+            }
+            .go-left {
+                transform: translateX(-200%);
+            }
+
+            .x-left {
+                transform: rotate(45deg) translateX(0);
+            }
+            .x-right {
+                transform: rotate(-45deg) translateX(0);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="circle-border"></div>
+            <div class="sec-border"></div>
+            <div class="circle"></div>
+            <div class="hors"></div>
+            <div class="vert"></div>
+            <div class="left"></div>
+            <div class="right"></div>
+        </div>
+
+        <script>
+            const button = document.querySelector(".container");
+            button.addEventListener("click", click);
+            function click() {
+                document.querySelector(".sec-border").classList.toggle("expand");
+                document.querySelector(".hors").classList.toggle("go-left");
+                document.querySelector(".vert").classList.toggle("go-up");
+                document.querySelector(".left").classList.toggle("x-left");
+                document.querySelector(".right").classList.toggle("x-right");
+            }
+        </script>
+    </body>
+</html>
