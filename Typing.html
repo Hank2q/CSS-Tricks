@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                height: 90vh;
+                flex-direction: column;
+                align-items: center;
+                background-color: #252525;
+                user-select: none;
+            }
+            .container {
+                display: flex;
+                position: relative;
+                width: 400px;
+            }
+            div {
+                font-size: 3rem;
+                font-weight: bold;
+            }
+            #text {
+                margin-right: 10px;
+            }
+            #word {
+                color: red;
+            }
+            .brack {
+                width: auto;
+                color: red;
+                animation: blink 0.65s infinite ease-in alternate-reverse;
+            }
+            @keyframes blink {
+                0% {
+                    opacity: 0;
+                }
+
+                100% {
+                    opacity: 1;
+                }
+            }
+            /* .button {
+                position: absolute;
+                top: 50px;
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                background: #252525;
+                box-shadow: 5px 5px 10px #101010, -5px -5px 10px #3a3a3a;
+                cursor: pointer;
+                transition: all 0.1s ease-in;
+            }
+
+            .btn {
+                border-top: transparent 35px solid;
+                border-left: rgb(101, 102, 104) 55px solid;
+                border-bottom: transparent 35px solid;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-35%, -50%);
+                transition: all 0.1s ease-in;
+            }
+            .button:active {
+                transform: scale(0.95);
+                box-shadow: inset 5px 5px 10px #101010, inset -5px -5px 10px #3a3a3a;
+            }
+            .button:active .btn {
+                transform: translate(-35%, -50%) scale(0.95);
+            } */
+        </style>
+    </head>
+    <body>
+        <!-- <div class="button">
+            <div class="btn"></div>
+        </div> -->
+        <div class="container">
+            <div id="text">Word is:</div>
+            <div id="word"></div>
+            <div class="brack">|</div>
+        </div>
+        <script>
+            let text = document.querySelector("#text");
+            let word = document.querySelector("#word");
+            let words = ["Bond", "Life", "Nice", "Psyche", "Pike", "Fun"];
+            let charTime = 0;
+            let button = document.querySelector(".button");
+            let playing = true;
+            let id;
+            document.addEventListener("DOMContentLoaded", () => {
+                id = setInterval(() => {
+                    animate();
+                }, 0);
+            });
+            function animate() {
+                words.forEach((wrd) => {
+                    wrd += " ";
+                    let runStrings = [];
+                    let chars = "";
+                    for (let char = 0; char < wrd.length; char++) {
+                        chars += wrd[char];
+                        runStrings.push(chars);
+                    }
+                    for (let char = 0; char < wrd.length; char++) {
+                        chars = chars.slice(0, -1);
+                        runStrings.push(chars);
+                    }
+                    runStrings.forEach((letters) => {
+                        setTimeout(() => {
+                            word.textContent = letters;
+                        }, (charTime += 600));
+                    });
+                });
+            }
+        </script>
+    </body>
+</html>

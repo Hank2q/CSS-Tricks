@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                transition: background-color 0.3s;
+            }
+            .logo {
+                position: absolute;
+                max-width: 10vw;
+                max-height: 10vh;
+                -webkit-transform: scaleX(-1);
+                transform: scaleX(-1);
+                margin-left: 1.5vw;
+                margin-top: 2vh;
+            }
+            .background {
+                /* aspect ration 2.67 */
+                height: 50px;
+                width: 100px;
+                background-color: silver;
+                display: flex;
+                align-items: center;
+                border-radius: 100px;
+                cursor: pointer;
+                position: relative;
+                margin-right: 1.5vw;
+                margin-top: 2vh;
+                float: right;
+            }
+            .button {
+                height: 108%;
+                width: 55%;
+                background-color: red;
+                position: absolute;
+                border-radius: 100px;
+                transition: transform 0.3s ease-in-out,
+                    background-color 0.3s ease-in-out;
+            }
+            h1 {
+                font-size: 10rem;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            .wrapper {
+                width: 100vw;
+                display: flex;
+                justify-content: center;
+            }
+            .wrapper * {
+                transition: color 0.3s ease-in-out, transform 0.3 ease-in-out;
+            }
+            @media screen and (max-width: 1200px) {
+                h1 {
+                    font-size: 5rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <a href="../index.html">
+            <img src="./ParallaxWord/images/logo.png" alt="logo" class="logo" />
+        </a>
+        <div class="switch background" onclick="switchButton();">
+            <div class="switch button"></div>
+        </div>
+        <div class="wrapper">
+            <h1>Dark Mode: <span>OFF</span></h1>
+        </div>
+        <script>
+            const background = document.querySelector(".background");
+            const button = document.querySelector(".button");
+            var on = false;
+            const text = document.querySelector("body > div.wrapper > h1");
+            const onText = document.querySelector("body > div.wrapper > h1 > span");
+            function switchButton() {
+                if (!on) {
+                    button.style.backgroundColor = "green";
+                    button.style.transform = "translateX(82%)";
+                    on = true;
+                    document.querySelector("body").style.backgroundColor = "black";
+                    text.style.color = "white";
+                    onText.textContent = "ON";
+                    onText.style.color = "green";
+                } else {
+                    button.style.backgroundColor = "red";
+                    document.querySelector("body").style.backgroundColor = "white";
+                    button.style.transform = "";
+                    on = false;
+                    text.style.color = "black";
+                    onText.textContent = "OFF";
+                    onText.style.color = "black";
+                }
+            }
+        </script>
+    </body>
+</html>
