@@ -13,7 +13,7 @@
             body {
                 display: flex;
                 height: 100vh;
-                justify-content: center;
+                justify-content: space-evenly;
                 align-items: center;
                 background-color: #232323;
             }
@@ -52,7 +52,7 @@
                 background-color: #2b65e2;
                 border-radius: 50%;
             }
-            .sec-border {
+            .sec-border-1 {
                 position: absolute;
                 top: -100%;
                 height: 300px;
@@ -63,13 +63,13 @@
                 border: 15px solid rgb(255, 255, 255);
                 transition: all 0.25s ease-in;
             }
-            .expand {
+            .expand-1 {
                 top: 0;
                 transform: scale(1);
             }
 
-            .vert,
-            .hors {
+            .vert-1,
+            .hors-1 {
                 position: absolute;
                 width: 140px;
                 height: 20px;
@@ -78,7 +78,7 @@
                 z-index: 2;
                 transition: transform 0.25s ease-in;
             }
-            .vert {
+            .vert-1 {
                 height: 140px;
                 width: 20px;
             }
@@ -111,28 +111,78 @@
             .x-right {
                 transform: rotate(-45deg) translateX(0);
             }
+            .container:hover {
+                box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 0.445);
+            }
+            .container:active {
+                box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.445);
+            }
+            .sec-border-2 {
+                position: absolute;
+                height: 300px;
+                width: 300px;
+                transform: scale(0.85);
+                border-radius: 50%;
+                border: 15px solid rgb(255, 255, 255);
+                transition: all 0.25s ease-in;
+            }
+            .expand-2 {
+                transform: scale(1);
+            }
+
+            .vert-2,
+            .hors-2 {
+                position: absolute;
+                width: 140px;
+                height: 20px;
+                background-color: rgb(2, 209, 2);
+                border-radius: 50px;
+                z-index: 2;
+                transition: all 0.25s ease-in;
+            }
+            .vert-2 {
+                height: 140px;
+                width: 20px;
+            }
+            .x {
+                background-color: red;
+                transform: rotate(45deg);
+            }
         </style>
     </head>
     <body>
-        <div class="container">
+        <div class="button1 container">
             <div class="circle-border"></div>
-            <div class="sec-border"></div>
+            <div class="sec-border-1"></div>
             <div class="circle"></div>
-            <div class="hors"></div>
-            <div class="vert"></div>
+            <div class="hors-1"></div>
+            <div class="vert-1"></div>
             <div class="left"></div>
             <div class="right"></div>
         </div>
-
+        <div class="button2 container">
+            <div class="circle-border"></div>
+            <div class="sec-border-2"></div>
+            <div class="circle"></div>
+            <div class="hors-2"></div>
+            <div class="vert-2"></div>
+        </div>
         <script>
-            const button = document.querySelector(".container");
-            button.addEventListener("click", click);
-            function click() {
-                document.querySelector(".sec-border").classList.toggle("expand");
-                document.querySelector(".hors").classList.toggle("go-left");
-                document.querySelector(".vert").classList.toggle("go-up");
+            const button1 = document.querySelector(".button1");
+            const button2 = document.querySelector(".button2");
+            button1.addEventListener("click", click1);
+            button2.addEventListener("click", click2);
+            function click1() {
+                document.querySelector(".sec-border-1").classList.toggle("expand-1");
+                document.querySelector(".hors-1").classList.toggle("go-left");
+                document.querySelector(".vert-1").classList.toggle("go-up");
                 document.querySelector(".left").classList.toggle("x-left");
                 document.querySelector(".right").classList.toggle("x-right");
+            }
+            function click2() {
+                document.querySelector(".sec-border-2").classList.toggle("expand-2");
+                document.querySelector(".hors-2").classList.toggle("x");
+                document.querySelector(".vert-2").classList.toggle("x");
             }
         </script>
     </body>
