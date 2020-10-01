@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>test</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                display: flex;
+                height: 100vh;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-evenly;
+                background-color: rgb(221, 211, 221);
+            }
+
+            .buttons {
+                background: linear-gradient(to right, #353535, #252525);
+                padding: 10px;
+                display: flex;
+                box-shadow: 0px 5px 10px 2px #0007;
+            }
+            .buttons button {
+                font-size: 2rem;
+                margin: 10px;
+                padding: 5px;
+                outline: none;
+                width: 200px;
+                cursor: pointer;
+                border: 3px solid;
+                border-radius: 50px;
+                transition: all 0.25s ease-in;
+            }
+            #info {
+                background-color: #00c4ff;
+                border-color: #007fa5;
+            }
+            #info:hover {
+                box-shadow: 0 0 20px 7px #0095c2;
+            }
+            #info:active {
+                box-shadow: inset 0 0 20px 7px #0095c2;
+            }
+            #suc {
+                background-color: #0be12f;
+                border-color: #079f20;
+            }
+            #suc:hover {
+                box-shadow: 0 0 20px 7px #09c528;
+            }
+            #suc:active {
+                box-shadow: inset 0 0 20px 7px #09c528;
+            }
+            #warn {
+                background-color: #fbff00;
+                border-color: #afb202;
+            }
+            #warn:hover {
+                box-shadow: 0 0 20px 7px #d4d802;
+            }
+            #warn:active {
+                box-shadow: inset 0 0 20px 7px #d4d802;
+            }
+            #err {
+                background-color: #ff0000;
+                border-color: #b60000;
+            }
+            #err:hover {
+                box-shadow: 0 0 20px 7px #da0000;
+            }
+            #err:active {
+                box-shadow: inset 0 0 20px 7px #da0000;
+            }
+
+            .custome {
+                background: linear-gradient(to right, #353535, #252525);
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                box-shadow: 0px 5px 10px 2px #0007;
+                color: white;
+                width: 880px;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
+            .custome > * {
+                margin: 10px 0;
+            }
+            .custome label,
+            .custome input,
+            .custome select,
+            .custome option {
+                font-size: 1.2rem;
+            }
+            .inputs {
+                display: flex;
+                flex-direction: column;
+            }
+            .inputs > div {
+                margin-top: 25px;
+            }
+            .custome input,
+            .custome select,
+            .custome option {
+                padding: 5px;
+                border: none;
+                outline: none;
+                margin-left: 15px;
+                border-radius: 50px;
+            }
+            input[type="number"] {
+                width: 70px;
+            }
+            input[type="text"],
+            input[type="number"] {
+                padding-left: 15px;
+            }
+            .make {
+                font-size: 3.5rem;
+                border-radius: 10px;
+                outline: none;
+                border: none;
+                background-color: rgb(78, 78, 78);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="buttons">
+            <button id="info">Info</button>
+            <button id="suc">Success</button>
+            <button id="warn">Warrning</button>
+            <button id="err">Error</button>
+        </div>
+        <div class="custome">
+            <h2>Make a Custome Toast Notification</h2>
+            <div class="inputs">
+                <div class="types">
+                    <label for="type">Select Toast Type:</label>
+                    <select name="type" id="type">
+                        <option value="info">Information</option>
+                        <option value="success">Successful</option>
+                        <option value="warrning">Warrning</option>
+                        <option value="error">Error</option>
+                    </select>
+                </div>
+                <div class="msg">
+                    <label for="custome-msg">Toast messege:</label>
+                    <input type="text" id="custome-msg" size="50" />
+                </div>
+                <div class="duration">
+                    <label for="dur"
+                        >Toast duration in seconds (0 for infinite):</label
+                    >
+                    <input
+                        type="number"
+                        name="dur"
+                        id="dur"
+                        min="0"
+                        step=".1"
+                        placeholder="0"
+                    />
+                </div>
+            </div>
+            <button class="make">&#127838;</button>
+        </div>
+        <script type="module">
+            import { Toast } from "./toast.js";
+            const buttons = document.querySelectorAll("button");
+            buttons[0].addEventListener("click", () => {
+                Toast.show("info", "This is an information toast", -1);
+            });
+            buttons[1].addEventListener("click", () => {
+                Toast.show("success", "This is a Success toast", -1);
+            });
+            buttons[2].addEventListener("click", () => {
+                Toast.show("warrning", "This is a warrning toast", -1);
+            });
+            buttons[3].addEventListener("click", () => {
+                Toast.show("error", "This is an error toast", -1);
+            });
+
+            const tBtn = document.querySelector(".make");
+
+            tBtn.addEventListener("click", make);
+
+            function make() {
+                let msg = document.querySelector("#custome-msg");
+                let type = document.querySelector("#type");
+                let duration = document.querySelector("#dur");
+                Toast.show(type.value, msg.value, duration.value);
+                msg.value = "";
+                duration.value = "";
+            }
+        </script>
+    </body>
+</html>

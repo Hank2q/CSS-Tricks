@@ -6,11 +6,18 @@ export const Toast = {
         error: ["#ff0000", "#b60000"],
         success: ["#0be12f", "#079f20"],
     },
+    // style for the shadow dom
     styleSheet: `
+            * {
+                font-family: san-serif;
+                font-size: 18px
+            }
             .toast-container {
                 position: fixed;
                 right: 1%;
                 width: auto;
+                top: 2%;
+                
             }
             .toast {
                 border: 2px solid black;
@@ -41,42 +48,70 @@ export const Toast = {
             }
             .title {
                 margin-bottom: 15px;
-            }`,
+            }
+            `,
     init() {
+        // on callin a toast for the first time, set up shadow dom and container
         if (!this.initialized) {
+            // creating element to hold shadow dom
+            let shadow = document.createElement("div");
+            shadow.style.position = "absolute";
+            shadow.className = "shadow";
+            shadow.attachShadow({ mode: "open" });
+
+            // adding toast style to shadow dom
             let style = document.createElement("style");
             style.innerHTML = this.styleSheet;
-            document.head.appendChild(style);
+            shadow.shadowRoot.appendChild(style);
+
+            // adding the shadow comtainer to page
+            document.body.appendChild(shadow);
+
+            // creating and adding the toast container to the shadow element
             let newContainer = document.createElement("div");
             newContainer.className = "toast-container";
-            document.body.appendChild(newContainer);
+            shadow.shadowRoot.appendChild(newContainer);
             this.container = newContainer;
             this.initialized = true;
         }
     },
     show(type, message, duration) {
+        // run only once
         this.init();
+
+        // create a new toast with passed params and adds it to toast container
         let toast = this.newToast(type, message, duration);
         this.container.appendChild(toast);
+
+        // timing of entrance animation for the toast
         setTimeout(() => {
             toast.classList.add("toast-visible");
         }, 0);
     },
+    // create a new toast element and returns it
     newToast(type, message, duration) {
+        // type of toast to set styling and title
         const toastType = type || "info";
+
+        // duration of visibilty either as passed or infinite (-1)
         const toastDuration = duration || -1;
+
         let toast = document.createElement("div");
         toast.classList.add("toast");
         toast.innerHTML = `<div class="title">${toastType}!</div>
                 <div class="close">&#10006;</div>
-                <div class="message">${message}</div>`;
+                <div>${message}</div>`;
 
+        // adding close functionality to x button
         toast.querySelector(".close").addEventListener("click", () => {
             toast.classList.remove("toast-visible");
             this.removeToast(toast);
         });
+
+        // applying type style
         toast.style.backgroundColor = this.types[type][0];
         toast.style.borderColor = this.types[type][1];
+
         if (toastDuration > 0) {
             setTimeout(() => {
                 toast.classList.remove("toast-visible");
@@ -86,6 +121,7 @@ export const Toast = {
         return toast;
     },
 
+    // animation timing for exiting toast
     removeToast(toast) {
         setTimeout(() => {
             toast.remove();
