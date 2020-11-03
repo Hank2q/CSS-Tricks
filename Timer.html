@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Countdown Timer</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+            body {
+                background-color: #252525;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+            }
+            div {
+                font-size: 2rem;
+                margin: 0 2px;
+            }
+            .pres {
+                perspective: 500px;
+            }
+            .cont {
+                background-color: #d3d3d3;
+                padding: 5px;
+                border-radius: 5px;
+                transform-origin: center;
+                transform-style: preserve-3d;
+            }
+            .col {
+                color: #d3d3d3;
+            }
+            @keyframes flip {
+                0% {
+                    transform: rotateX(0deg);
+                }
+                100% {
+                    transform: rotateX(-180deg);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="pres">
+            <div class="cont"><h1 class="minutes"></h1></div>
+        </div>
+        <div><h1 class="col">:</h1></div>
+        <div class="pres">
+            <div class="cont"><h1 class="seconds"></h1></div>
+        </div>
+        <script>
+            let m = document.querySelector(".minutes");
+            let s = document.querySelector(".seconds");
+            let sentOn = new Date();
+            let endsOn = new Date(sentOn);
+            endsOn.setMinutes(endsOn.getMinutes() + 10);
+            let t = setInterval(countdown, 1000);
+            function flip(elem) {
+                elem.style.transform = "rotateX(180deg)";
+                elem.parentElement.style.animation = "flip 0.35s ease";
+                setTimeout(() => {
+                    elem.parentElement.style.animation = "";
+                    elem.style.transform = "";
+                }, 350);
+            }
+            function countdown() {
+                let now = new Date();
+                let diff = endsOn - now;
+                let secs = Math.round(diff / 1000);
+                let { quonent: remMins, remainder: remSecs } = divmod(secs, 60);
+                remMins = remMins >= 10 ? remMins : "0" + remMins;
+                remSecs = remSecs >= 10 ? remSecs : "0" + remSecs;
+                if (m.textContent != remMins) {
+                    flip(m);
+                }
+                m.textContent = remMins;
+                flip(s);
+                s.textContent = remSecs;
+                if (diff < 0) {
+                    clearInterval(t);
+                }
+            }
+
+            function divmod(num, divider) {
+                let quonent = Math.floor(num / divider);
+                let remainder = num % divider;
+                return { quonent, remainder };
+            }
+        </script>
+    </body>
+</html>
